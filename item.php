@@ -10,11 +10,12 @@ class Item {
     public $color;//color
     public $cost;//cost that WE pay to purchase the product for resale
     public $retailCost;//cost that the customer pays
+    public $subprice;//Price for subscribers
     public $image;//Image of the Item
     public $id;//Item ID
 
 
-    public function __construct($itemName,$description,$category,$color,$cost,$retailCost, $id, $image)
+    public function __construct($itemName,$description,$category,$color,$cost,$retailCost, $subprice, $id, $image)
     {
         require('database.php');
         $this->itemName=$itemName;
@@ -23,9 +24,10 @@ class Item {
         $this->color=$color;
         $this->cost=$cost;
         $this->retailCost=$retailCost;
+        $this->subprice=$subprice;
         $this->id=$id;
         $this->image=$image;
-        $query = "INSERT INTO puppyhouse.item(name, description, category, color,purchasecost, fullretailprice, id, image) VALUES('$itemName', '$description','$category','$color', '$cost','$retailCost', '$id', '$image')";
+        $query = "INSERT INTO puppyhouse.item(name, description, category, color,purchasecost, fullretailprice, subscriberprice, id, image) VALUES('$itemName', '$description','$category','$color', '$cost','$retailCost', '$subprice', '$id', '$image')";
         mysqli_query($conn, $query);
     }
 

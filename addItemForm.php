@@ -45,6 +45,9 @@ require('addItem.php');
             <label>Item Full Retail Cost</label>
             <input type = "text" name="retailcost" class="form-control">
 
+            <label>Item Subscriber Cost</label>
+            <input type = "text" name="subcost" class="form-control">
+
             <label>Item ID</label>
             <input type = "text" name="id" class="form-control">
 

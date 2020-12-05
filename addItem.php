@@ -22,12 +22,13 @@ if(isset($_POST['submit'])) {
     $color = mysqli_real_escape_string($conn, $_POST['color']);
     $cost = mysqli_real_escape_string($conn, $_POST['purchasecost']);
     $retailcost = mysqli_real_escape_string($conn, $_POST['retailcost']);
+    $subcost = mysqli_real_escape_string($conn, $_POST['subcost']);
     $id = mysqli_real_escape_string($conn, $_POST['id']);
     $image = mysqli_real_escape_string($conn, $_POST['image']);
 
 
     //Create Item object from data collected
-    $product = new Item("$name", "$description", "$category", "$color", "$cost", "$retailcost", "$id", "$image");
+    $product = new Item("$name", "$description", "$category", "$color", "$cost", "$retailcost", "$subcost","$id", "$image");
 
 
     /*//Getter methods to retrieve properties of the Object created

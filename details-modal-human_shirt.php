@@ -40,6 +40,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                <button class="btn btn-warning" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span>Add To Cart</button>
                             </form>
                         </div>
                     </div>
@@ -47,7 +48,6 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-warning" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span>Add To Cart</button>
             </div>
         </div>
     </div>

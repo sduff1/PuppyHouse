@@ -1,7 +1,3 @@
-<?php
-include 'cartcreate.php';
-global $cart;
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,10 +20,10 @@ global $cart;
 <nav class="navbar navbar-default navbar-fixed-top" id="navbar">
   <!--Drop down menu-->
   <div class="navbar">
-  <a id ="link" href="#home">Home</a>
-  <a  id ="link"  href="#aboutus">About us</a>
-  <a  id ="link"  href="#blog">Blog</a>
-  <a  id ="link"  href="#Contactus">Contact Us</a>
+  <a id ="link" href="index.php">Home</a>
+  <a  id ="link"  href="aboutus.php">About us</a>
+  <a  id ="link"  href="#blog.php">Blog</a>
+  <a  id ="link"  href="#contactus.php">Contact Us</a>
   <nav class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="text-1">For Puppies<span class="caret"></span></a>
       <div class="dropdown-menu" role="menu" id="text-2">
@@ -37,14 +33,19 @@ global $cart;
         <a href="#">Kitchenware</a>
       </div>
     </nav>
-    <nav class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="text-1">For Owners<span class="caret"></span></a>
-      <div class="dropdown-menu" role="menu" id="text-2">
-      <!--Need to add links to the products on amazon later-->
-        <a href="#">Clothing</a>
-        <a href="#">Accessories</a>
-        <a href="#">Kitchenware</a>
-      </div>
+      <nav class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="text-1">For Owners<span class="caret"></span></a>
+          <div class="dropdown-menu" role="menu" id="text-2">
+              <!--Need to add links to the products on amazon later-->
+              <a href="#">Clothing</a>
+              <a href="#">Accessories</a>
+              <a href="#">Kitchenware</a>
+          </div>
+  </div>
+    <div>
+        <a href="cartview.php" class="btn-my-cart" data-checkout="Checkout">
+            <span class="fa fa-shopping-cart"></span> My Cart</a>
+    </div>
     </nav>
   </nav>
 
@@ -79,34 +80,37 @@ global $cart;
             <th>Product</th>
             <th>Quantity</th>
             <th>Subtotal</th>
+            <th>Size</th>
         </tr>
 
 
         <?php
-
+        require 'itemcontroller.php';
+        require 'cartControl.php';
+        include_once 'cartItem.php';
+        $cart = $_SESSION['cart'];
                 for ($i = 0; $i < $cart->getCount(); $i++) {
-                    global $cart;
-                    echo <<<HTML
-                        <tr>
-                    <td>
-                    <div class="cart-info">
-                    <img src="<?php echo getImage($cart->getCartItems()[$i]->getID())?>" id="images">
-                    <div>
-                    <p><?php echo getItemName($cart->getCartItems()[$i]->getID())?></p>
-                    <small>Price: $<?php echo getRetailCost($cart->getCartItems()[$i]->getID())?></small>
-                    <br>
-                    <a href="">Remove</a>
-                    </div>
-                    </div>
-                    </td>
-                    <td><input type="number" value="1"></td>
-                    <td>$<?php echo getRetailCost($cart->getCartItems()[$i]->getID())?></td>
-                    </tr>
-                
-                
-                HTML;
-                }
-         ?>
+                    if($cart->getCartItems()[$i]->getID() != "empty") {
+                        echo "<tr>";
+                        echo "<td>";
+                        echo '<div class="cart-info">';
+                        echo '<img src="' . getImage($cart->getCartItems()[$i]->getID()) . '"id="images">';
+                        echo '<div>';
+                        echo '<p>' . getItemName($cart->getCartItems()[$i]->getID()) . '</p>';
+                        echo '<small>Price: $' . getRetailCost($cart->getCartItems()[$i]->getID()) . '</small>';
+                        echo '<br>';
+                        echo '<a href="cart_remove.php?id='.$i.'" >Remove</a>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</td>';
+                        echo '<td>'.$cart->getCartItems()[$i]->getQuantity().'</td>';
+                        echo '<td>$'.getRetailCost($cart->getCartItems()[$i]->getId()) * $cart->getCartItems()[$i]->getQuantity().'</td>';
+                        echo '<td>'.$cart->getCartItems()[$i]->getSize().'</td>';
+                        echo '</tr>';
+                    }
+        }
+        ?>
+
     </table>
     <!--Need database and formulas to calculate totals this is just a mock up-->
     <!--Functions will need to add up the totals based off items chosen-->
@@ -116,7 +120,7 @@ global $cart;
           <tr>
               <td>Subtotal</td>
               <td>$<?php $price = 0;
-                    for ($i = 0; $i < count($cart->getCartItems()); $i++){
+                    for ($i = 0; $i < $cart->getCount(); $i++){
                   $price = $price + $cart->getCartItems()[$i]->getPrice();
                   } echo $price;?>
               </td>

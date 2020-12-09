@@ -21,7 +21,7 @@ class Customer
         $this->customerId = $customerId;
         $this->secQuestion = $secQuestion;
         $this->secAnswer = $secAnswer;
-        $query = "INSERT INTO puppyhouse.customer(firstname, lastname, username, password, customerid, securityquestion, securityanswer) VALUES('$firstName', '$lastName','$username','$password', '$customerId','$secQuestion', '$secAnswer')";
+        $query = "INSERT INTO customer(firstname, lastname, username, password, customerid, securityquestion, securityanswer) VALUES('$firstName', '$lastName','$username','$password', '$customerId','$secQuestion', '$secAnswer')";
         mysqli_query($conn, $query);
     }
 

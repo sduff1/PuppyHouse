@@ -6,15 +6,17 @@ class cartItem{
     public $itemId;
     public $customerId;
     public $quantity;
+    public $size;
 
-    public function __construct($itemId, $customerId, $quantity){
+    public function __construct($itemId, $customerId, $quantity, $size){
         $this->itemId=$itemId;
         $this->customerId=$customerId;
         $this->quantity=$quantity;
+        $this->size=$size;
     }
     public function getID()
     {
-        return $this->itemId;
+            return $this->itemId;
     }
 
     public function setItemId($itemId): void
@@ -47,6 +49,15 @@ class cartItem{
         return getRetailCost($this->itemId) * $this->quantity;
 
 
+    }
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    public function setSize($size): void
+    {
+        $this->size = $size;
     }
 
 

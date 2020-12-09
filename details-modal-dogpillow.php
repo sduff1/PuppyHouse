@@ -22,7 +22,7 @@
                             <hr />
                             <p>Price: $<?php echo getRetailCost($id)?></p>
                             <p>Subscriber Price: $<?php echo getSubscriberCost($id)?></p>
-                            <form action="add_cart.php" method="post">
+                            <form action="add_cart.php" method="POST">
                                 <div class="form-group">
                                     <div class="col-xs-3">
                                         <input type="hidden" id="itemId" name="itemId" value="<?php echo $id?>">
@@ -40,6 +40,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                <button class="btn btn-warning" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span>Add To Cart</button>
                             </form>
                         </div>
                     </div>
@@ -47,7 +48,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-warning" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span>Add To Cart</button>
+
             </div>
         </div>
     </div>

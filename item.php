@@ -15,7 +15,7 @@ class Item {
     public $id;//Item ID
 
 
-    public function __construct($itemName,$description,$category,$color,$cost,$retailCost, $subprice, $id, $image)
+    public function __construct($itemName,$description,$category,$color,$cost,$retailCost, $subprice, $id,string $image)
     {
         require('database.php');
         $this->itemName=$itemName;
@@ -27,7 +27,7 @@ class Item {
         $this->subprice=$subprice;
         $this->id=$id;
         $this->image=$image;
-        $query = "INSERT INTO puppyhouse.item(name, description, category, color,purchasecost, fullretailprice, subscriberprice, id, image) VALUES('$itemName', '$description','$category','$color', '$cost','$retailCost', '$subprice', '$id', '$image')";
+        $query = "INSERT INTO item(name, description, category, color,purchasecost, fullretailprice, subscriberprice, id, image) VALUES('$itemName', '$description','$category','$color', '$cost','$retailCost', '$subprice', '$id', '$image')";
         mysqli_query($conn, $query);
     }
 
@@ -38,19 +38,19 @@ class Item {
 
    /* public function getItemName($id)
     {
-        $query = "SELECT name FROM puppyhouse.item WHERE id = '$id'";
+        $query = "SELECT name FROM item WHERE id = '$id'";
         return mysqli_query($conn, $query);
     }
 
     public function setItemName($itemName, $id): void
     {
-        $query = "UPDATE puppyhouse.item Set name='$itemName'  WHERE id = '$id'";
+        $query = "UPDATE item Set name='$itemName'  WHERE id = '$id'";
         mysqli_query($conn, $query);
     }
 
     public function getDescription($id)
     {
-        $query = "SELECT description FROM puppyhouse.item WHERE id = '$id'";
+        $query = "SELECT description FROM item WHERE id = '$id'";
         return mysqli_query($conn, $query);
     }
 

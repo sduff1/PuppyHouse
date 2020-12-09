@@ -1,6 +1,5 @@
 <?php
 
-$cart = $_SESSION['cart'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,9 +24,9 @@ $cart = $_SESSION['cart'];
   <!--Drop down menu-->
   <div class="navbar">
   <a id ="link" href="index.php">Home</a>
-  <a  id ="link"  href="#aboutus">About us</a>
-  <a  id ="link"  href="#blog">Blog</a>
-  <a  id ="link"  href="#Contactus">Contact Us</a>
+  <a  id ="link"  href="aboutus.php">About us</a>
+  <a  id ="link"  href="blog.php">Blog</a>
+  <a  id ="link"  href="contactus.php">Contact Us</a>
   <nav class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="text-1">For Puppies<span class="caret"></span></a>
       <div class="dropdown-menu" role="menu" id="text-2">
@@ -39,13 +38,18 @@ $cart = $_SESSION['cart'];
     </nav>
   </div>
     <nav class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="text-1">For Owners<span class="caret"></span></a>
-      <div class="dropdown-menu" role="menu" id="text-2">
-      <!--Need to add links to the products on amazon later-->
-        <a href="#">Clothing</a>
-        <a href="#">Accessories</a>
-        <a href="#">Kitchenware</a>
-      </div>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="text-1">For Owners<span class="caret"></span></a>
+        <div class="dropdown-menu" role="menu" id="text-2">
+            <!--Need to add links to the products on amazon later-->
+            <a href="#">Clothing</a>
+            <a href="#">Accessories</a>
+            <a href="#">Kitchenware</a>
+        </div>
+        </div>
+        <div>
+            <a href="cartview.php" class="btn-my-cart" data-checkout="Checkout">
+                <span class="fa fa-shopping-cart"></span> My Cart</a>
+        </div>
     </nav>
   </nav>
 
@@ -82,23 +86,31 @@ $cart = $_SESSION['cart'];
       </tr>
 
 
-          <?php for ($i = 0; $i < count($cart); $i++) {
-              echo '<tr>';
-              echo '<td>';
+          <?php
+          require 'itemcontroller.php';
+          require 'cartControl.php';
+          $cart = $_SESSION['cart'];
+
+          for ($i = 0; $i < $cart->getCount(); $i++) {
+          if($cart->getCartItems()[$i]->getID() != "empty") {
+              echo "<tr>";
+              echo "<td>";
               echo '<div class="cart-info">';
-              echo '<img src="<?php echo getImage($cart->getCartItems()[$i]->getID())?>" id="images">';
+              echo '<img src="' . getImage($cart->getCartItems()[$i]->getID()) . '"id="images">';
               echo '<div>';
-              echo '<p><?php echo getItemName($cart->getCartItems()[$i]->getID())?></p>';
-              echo '<small>Price: $<?php echo getRetailCost($cart->getCartItems()[$i]->getID())?></small>';
+              echo '<p>' . getItemName($cart->getCartItems()[$i]->getID()) . '</p>';
+              echo '<small>Price: $' . getRetailCost($cart->getCartItems()[$i]->getID()) . '</small>';
               echo '<br>';
-              echo '<a href="">Remove</a>';
               echo '</div>';
               echo '</div>';
               echo '</td>';
-              echo '<td><input type="number" value="1"></td>';
-              echo '<td>$<?php echo getRetailCost($cart->getCartItems()[$i]->getID())?></td>';
+              echo '<td>' . $cart->getCartItems()[$i]->getQuantity() . '</td>';
+              echo '<td>$' . getRetailCost($cart->getCartItems()[$i]->getId()) * $cart->getCartItems()[$i]->getQuantity(). '</td>';
+              echo '<td>$' .$cart->getCartItems()[$i]->getSize(). '</td>';
               echo '</tr>';
-          }?>
+          }
+          }
+          ?>
       </table>
     </div>
   </div>
@@ -126,11 +138,22 @@ $cart = $_SESSION['cart'];
         </tr>
     </table>
 </div>
+<style> 
+input[type=submit] {
+  background-color: #fd7014;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
 <div class="row">
   <div class="col-md-3">
     <div class="container" id="customer-info">
       <!---This form needs to send customer email, address, and phone number to customer database--->
-      <form action="#" method="post">
+      <form name="custinfo" action="confirmOrder.php" method="POST">
         <div class="form-group">
           <div class="col-xs-3">
             <label for="Name" id="Name-label">Name (First and Last):</label>
@@ -153,22 +176,28 @@ $cart = $_SESSION['cart'];
             <br />
             <label for="phone" id="phone-label">Phone Number:</label>
             <input type="text" class="form-control" id="phone" name="phone" />
+              <br />
+              <label for="card" id="city-label">Credit Card Number:</label>
+              <input type="text" class="form-control" id="card" name="card" />
+              <br />
+              <label for="exp" id="state-label">Expiration Date:</label>
+              <input type="text" class="form-control" id="exp" name="exp" />
+              <br />
+              <label for="sec" id="zip-label">Security Code:</label>
+              <input type="text" class="form-control" id="sec" name="sec" />
+              <br />
+              <label for="cname" id="phone-label">Name on Card:</label>
+              <input type="text" class="form-control" id="cname" name="cname" />
             <br />
+			<span class="fa fa-shopping-cart"></span>
+             	<input type="submit" name="submit" class="btn btn-my-order" value="Place Order">
             </form>
           </div>
         </div>
         </div>
 
 
-    <div class="placeorder-btn">
-      <div class="placeorder-cart">
-        <!--Link to secure credit card portal-->
-        <a href="#" class="btn btn-my-order" data-checkout="Order">
-          <span class="fa fa-shopping-cart"></span>Place Order</a>
-      </div>
-  </div>
-
-
+    
 
 <!--Insert footer-->
 <div style="background-color: #fd7014;">

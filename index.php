@@ -1,6 +1,9 @@
 <?php
 require 'itemcontroller.php';
-global $cart;
+require 'cartControl.php';
+if (exists() == false) {
+    createCart();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,10 +27,10 @@ global $cart;
 <nav class="navbar navbar-default navbar-fixed-top" id="navbar">
   <!--Drop down menu-->
   <div class="navbar">
-  <a id ="link" href="#home">Home</a>
-  <a  id ="link"  href="#aboutus">About us</a>
-  <a  id ="link"  href="#blog">Blog</a>
-  <a  id ="link"  href="#Contactus">Contact Us</a>
+  <a id ="link" href="index.php">Home</a>
+  <a  id ="link"  href="aboutus.php">About us</a>
+  <a  id ="link"  href="blog.php">Blog</a>
+  <a  id ="link"  href="contactus.php">Contact Us</a>
   <nav class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="text-1">For Puppies<span class="caret"></span></a>
       <div class="dropdown-menu" role="menu" id="text-2">
@@ -37,15 +40,20 @@ global $cart;
         <a href="#">Kitchenware</a>
       </div>
     </nav>
-    <nav class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="text-1">For Owners<span class="caret"></span></a>
-      <div class="dropdown-menu" role="menu" id="text-2">
-      <!--Need to add links to the products on amazon later-->
-        <a href="#">Clothing</a>
-        <a href="#">Accessories</a>
-        <a href="#">Kitchenware</a>
-      </div>
-    </nav>
+      <nav class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="text-1">For Owners<span class="caret"></span></a>
+          <div class="dropdown-menu" role="menu" id="text-2">
+              <!--Need to add links to the products on amazon later-->
+              <a href="#">Clothing</a>
+              <a href="#">Accessories</a>
+              <a href="#">Kitchenware</a>
+          </div>
+  </div>
+    <div>
+        <a href="cartview.php" class="btn-my-cart" data-checkout="Checkout">
+            <span class="fa fa-shopping-cart"></span> My Cart</a>
+    </div>
+</nav>
   </nav>
 
 </div>

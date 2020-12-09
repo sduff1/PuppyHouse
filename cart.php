@@ -1,22 +1,20 @@
 <?php
 
 include 'database.php';
-global $cart;
 class cart{
 
     public $customerId;
     public $cartItems;
 
-    function __construct($customerId, $cartitems){
+    function __construct($customerId,array $cartitems){
         $this->customerId=$customerId;
-        $this->cartItems[]=$cartitems;
+        $this->cartItems=$cartitems;
     }
     function getCartItems()
     {
-        if ($this->getCount() == 1)
+        if (is_array($this->cartItems) == false)
         {
-            $array = array($this->cartItems);
-            return $array;
+            return array($this->cartItems);
         }
         else {
             return $this->cartItems;
@@ -25,7 +23,7 @@ class cart{
 
     function addCartItem($cartItem): void
     {
-        array_push($cartItems, $cartItem);
+        array_push($this->cartItems, $cartItem);
     }
     function removeCartItem($itemID): void
     {
@@ -61,18 +59,11 @@ class cart{
     {
         return count($this->cartItems);
     }
-
-
-    /*public function getQuantity()
+    function removeItem($cartItem)
     {
-        return $this->quantity;
-    }
+                array_splice($this->cartItems, $cartItem, 1);
 
-    public function setQuantity($quantity): void
-    {
-        $this->quantity = $quantity;
-    }*/
-
+    }   
 
 
 }

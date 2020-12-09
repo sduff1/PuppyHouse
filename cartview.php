@@ -137,15 +137,22 @@
         </table>
     </div>
     <hr />
-    <div class="checkout-btn">
-      <div class="cheackout-cart">
-        <a href="checkout.php" class="btn btn-my-checkout" data-checkout="Checkout">
-          <span class="fa fa-shopping-cart"></span>Checkout</a>
-      </div>
-  </div>
+<style> 
+input[type=submit] {
+  background-color: #fd7014;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+    <form action="checkout.php">
+    <span class="fa fa-shopping-cart"></span>
+   <input type="submit" name="submit" class="btn btn-my-order" value="Checkout">
+</form> 
 </div>
-
-
 <!--Insert footer-->
 <div style="background-color: #fd7014;">
 <footer class="text-center" id="footer">&copy; Copyright 2020 PuppyHouse. All rights Reserved.
